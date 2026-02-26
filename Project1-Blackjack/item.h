@@ -19,7 +19,7 @@ public:
     Item();
     Item(const std::string& n, 
          const std::string d, 
-         int trait
+         int trait,
          const std::string& target);
     
     std::string getItemName() const;

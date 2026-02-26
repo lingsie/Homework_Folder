@@ -1,0 +1,32 @@
+// blackjack.cpp
+
+// real game
+
+// bring in
+#include <iostream>
+#include <cstdlib>
+#include "blackjack.h"
+
+using namespace std;
+
+static int roundNumber = 0 // game stat
+
+
+// game
+void playRound(player & player) {
+    int playerCard = rand % 10 + 1;
+    int dealerCard = rand () % 10 + 1;
+     cout << "\n Your drew: " << playerCard << endl;
+     cout << "Dealer drew: " dealerCard << endl;
+     
+     if (playerCard > dealerCard) {
+          cout << "You win!\n";
+          player.addBankroll(100);
+     } else {
+          cout << "The Dealer win\n";
+          player.addBankroll(-100);
+     }
+     
+     roundNumber++;
+     cout << "Round Number: " << roundNumber << endl;
+}
