@@ -1,8 +1,8 @@
 // blackjack.h
 // gameplay
 
-#ifdef BLACKJACK.H
-#define BLACKJACK.H
+#ifndef BLACKJACK_H
+#define BLACKJACK_H
 
 // bring in
 #include "player.h"

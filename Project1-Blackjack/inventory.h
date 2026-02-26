@@ -1,27 +1,33 @@
 // inventory.h bag
-#ifndef INVENTORY.H
+#ifndef INVENTORY_H
 #define INVENTORY_H
+
 
 // bring in
 #include "item.h"
-#include "string"
+#include <string>
+#include <vector>
+
 
 const int INVENTORY_CAP = 50;
 
+
 // public class
-class Bag {
+class Inventory {
 private:
-    Item items(INVENTROY_CAP);
-    int itemCount
-    
+    std::vector<Item> items;
 public:
-    bag();
-    
-    
-    bool addItemName(const Item& item);
-    bool removeItemName(std::string& name);
-    void getBag() const;
+    Inventory() = default;
+
+
+    bool addItem(const Item& item);
+    bool removeItemByName(const std::string& name);
+    Item* findItemByName(const std::string& name);
+
+
+    void openBag() const;
     int getItemCount() const;
 };
+
 
 #endif

@@ -1,6 +1,7 @@
 // item.h
-#ifndef ITEM.H
+#ifndef ITEM_H
 #define ITEM_H
+
 
 // bring in
 #include <string>
@@ -13,19 +14,23 @@ private:
     std::string name;
     std::string description;
     int traitValue;
-   
+    std::string targetStat;
+
+
 // window.cd public class
 public:
     Item();
-    Item(const std::string& n, 
-         const std::string d, 
+    Item(const std::string& n,
+         const std::string& d,
          int trait,
          const std::string& target);
-    
+
+
     std::string getItemName() const;
     std::string getItemDesc() const;
-    int getItemValue() const;
-    std::string getTStatus() const;
+    int getTraitValue() const;
+    std::string getTargetStat() const;
 };
+
 
 #endif

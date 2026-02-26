@@ -1,82 +1,106 @@
 // player.cpp
 
+
 // bring in
 #include "player.h"
 #include <iostream>
 
+
+using namespace std;
+s
 // Archetype stat
 const int GAMBLER_BANKROLL = 1000;
 const int GAMBLER_LUCK = 5;
 const int GAMBLER_RISK = 5;
 
+
 const int ANALYST_BANKROLL = 800;
-const int ANALYST_LUCK = 2
-const int ANALYST_RISK = 8
+const int ANALYST_LUCK = 2;
+const int ANALYST_RISK = 8;
+
 
 const int HIGHROLLER_BANKROLL = 2000;
 const int HIGHROLLER_LUCK = 1;
 const int HIGHROLLER_RISK = 3;
 
+
 Player::Player()
-    : name("Player"), archetype("Gambler"), bankroll(GAMBLER_BANKROLL),
-    luck(GAMBLER_LUCK), risk(GAMBLER_RISK), {}
-    
+    : name("Player"),
+      archetype("Gambler"),
+      bankroll(GAMBLER_BANKROLL),
+      luck(GAMBLER_LUCK),
+      risk(GAMBLER_RISK) {}
+
+
 Player::Player(const std::string& n, const std::string& type, int money, int l, int r)
     : name(n), archetype(type), bankroll(money), luck(l), risk(r) {}
-    
-Player Player::createdWithArchtype(const std::string& playerName) {
-    cout << "\n Please choose a archetype: \n";
+
+
+Player Player::createArchetype(const std::string& playerName) {
+    cout << "\nPlease choose a archetype: \n";
     cout << "1) Gambler        (Bankroll 1000, Luck 5, Risk 5) \n";
     cout << "2) Analyst        (Bankroll 800,  Luck 2, Risk 8) \n";
-    cout << "3) HighRoller     (Bankroll 2000, Luck 1, risk 3) \n";
-    cout << "Please enter your choice: "
-    
-    int choice
+    cout << "3) HighRoller     (Bankroll 2000, Luck 1, Risk 3) \n";
+    cout << "Please enter your choice: ";
+
+
+    int choice = 1;
     cin >> choice;
-    
+
+
     if (choice == 2) {
-        return Player(PlayerName, "Analyst", ANALYST_BANKROLL, ANALYST_LUCK, ANALYST_RISK);
+        return Player(playerName, "Analyst", ANALYST_BANKROLL, ANALYST_LUCK, ANALYST_RISK);
     }
     if (choice == 3) {
-        return Player(PlayerName, "HighRoller", HIGHROLLER_BANKROLL,  HIGHROLLER_LUCK, HIGHROLLER_RISK);
+        return Player(playerName, "HighRoller", HIGHROLLER_BANKROLL, HIGHROLLER_LUCK, HIGHROLLER_RISK);
     }
-    return Player(PlayerName, "Gambler", GAMBLER_BANKROLL, GAMBLER_LUCK, GAMBLER_RISK);
+    return Player(playerName, "Gambler", GAMBLER_BANKROLL, GAMBLER_LUCK, GAMBLER_RISK);
 }
 
+
 // player profile
-void Player::displayPor() const {
+void Player::displayProfile() const {
     cout << "\n### Profile ###\n";
-    cout << "Name: " << username << "\n";
-    cout << "Archtype: " << archtype << "\n";
+    cout << "Name: " << name << "\n";
+    cout << "Archetype: " << archetype << "\n";
     cout << "Bankroll: " << bankroll << "\n";
-    cout << "Luck" << luck << "\n";
-    cout << "risk" << risk << "\n";
+    cout << "Luck: " << luck << "\n";
+    cout << "Risk: " << risk << "\n";
 }
+
 
 // using item
 void Player::applyItem(const Item& item) {
-    string target = item.get(TargetStat();
-    int value = item.get(TraitValue();
-    
+    string target = item.getTargetStat();
+    int value = item.getTraitValue();
+
+
     if (target == "bankroll") bankroll += value;
     else if (target == "luck") luck += value;
-    else if (target == "risk") risk +=- value;
-    
-    cout << "Applied '" << item.getItemName() << "'. (" << target << " changed by " << value << ")\n";
+    else if (target == "risk") risk -= value; // `�e/ risk +=- value; 	MN�i�
+
+
+    cout << "Applied '" << item.getItemName() << "'. (" << target
+         << " changed by " << value << ")\n";
 }
-bool PAlayer::appliedItemByName(const std::string& itemName) {
-    Item* it = omvemtpru.findItemByName(itemName);
+
+
+bool Player::applyItemByName(const std::string& itemName) {
+    Item* it = inventory.findItemByName(itemName);
     if (!it) return false;
-    
+
+
     // use item
-    applyItem(it);
-    inventory.removeitemByName(itemName);
+    applyItem(*it);
+    inventory.removeItemByName(itemName);
     return true;
 }
 
-// get player stat
-int PLayer::getBankroll() const (return bankroll; }
-int Player::getLuck() const (return luckl }
-int Player::getRisk() const (return risk; }
 
-void Player::addBankroll(int amount) (bankroll += amount; }
+// get player stat
+int Player::getBankroll() const { return bankroll; }
+int Player::getLuck() const { return luck; }
+int Player::getRisk() const { return risk; }
+
+
+void Player::addBankroll(int amount) { bankroll += amount; }

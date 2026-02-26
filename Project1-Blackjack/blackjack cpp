@@ -9,24 +9,27 @@
 
 using namespace std;
 
-static int roundNumber = 0 // game stat
-
+static int roundNumber = 0; // game stat
 
 // game
-void playRound(player & player) {
-    int playerCard = rand % 10 + 1;
-    int dealerCard = rand () % 10 + 1;
-     cout << "\n Your drew: " << playerCard << endl;
-     cout << "Dealer drew: " dealerCard << endl;
-     
-     if (playerCard > dealerCard) {
-          cout << "You win!\n";
-          player.addBankroll(100);
-     } else {
-          cout << "The Dealer win\n";
-          player.addBankroll(-100);
-     }
-     
-     roundNumber++;
-     cout << "Round Number: " << roundNumber << endl;
+void playRound(Player& player) {
+    int playerCard = (rand() % 10) + 1;
+    int dealerCard = (rand() % 10) + 1;
+
+    cout << "\nYou drew: " << playerCard << endl;
+    cout << "Dealer drew: " << dealerCard << endl;
+
+    if (playerCard > dealerCard) {
+        cout << "You win!\n";
+        player.addBankroll(100);
+    } else if (playerCard < dealerCard) {
+        cout << "The Dealer win\n";
+        player.addBankroll(-100);
+    } else {
+        cout << "Tie!\n";
+        // bankroll unchanged
+    }
+
+    roundNumber++;
+    cout << "Round Number: " << roundNumber << endl;
 }
