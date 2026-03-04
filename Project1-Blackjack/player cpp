@@ -7,7 +7,7 @@
 
 
 using namespace std;
-s
+
 // Archetype stat
 const int GAMBLER_BANKROLL = 1000;
 const int GAMBLER_LUCK = 5;
@@ -77,12 +77,20 @@ void Player::applyItem(const Item& item) {
 
     if (target == "bankroll") bankroll += value;
     else if (target == "luck") luck += value;
-    else if (target == "risk") risk -= value; // `�e/ risk +=- value; 	MN�i�
+    else if (target == "risk") risk -= value;
+
+
+    // clamp stats dont get negative, or too mush
+    if (luck < 0) luck = 0;
+    if (luck > 10) luck = 10;
+    if (risk < 0) risk = 0;
+    if (risk > 10) risk = 10;
 
 
     cout << "Applied '" << item.getItemName() << "'. (" << target
          << " changed by " << value << ")\n";
 }
+
 
 
 bool Player::applyItemByName(const std::string& itemName) {

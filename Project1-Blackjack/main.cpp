@@ -58,9 +58,8 @@ int main() {
     Player player = Player::createArchetype(name);
 
 
-    // �
-b cin >> choice Ye�bL
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
 
 
     // give some free item
@@ -79,7 +78,7 @@ b cin >> choice Ye�bL
         string cmd;
         cin >> cmd;
 
-
+        // menu
         if (cmd == "--help") {
             showHelp();
         }

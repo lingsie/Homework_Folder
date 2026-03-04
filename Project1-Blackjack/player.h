@@ -7,6 +7,7 @@
 #include <string>
 #include "inventory.h"
 
+class Item;
 
 // for player action
 class Player {
