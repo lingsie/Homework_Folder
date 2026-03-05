@@ -1,0 +1,109 @@
+// blackjack.cpp
+
+// real game
+
+// bring in
+#include <iostream>
+#include <cstdlib>
+#include "blackjack.h"
+#include <limits>
+
+
+using namespace std;
+
+// game stat
+static int roundNumber = 0; 
+
+
+// helpers
+
+// calculate
+static int clampi(int v, int lo, int hi) {
+    if (v < lo) return lo;
+    if (v > lo) return hi;
+    return v;
+}
+
+// give cards to player
+static int drawCardsFor(const Player& p) {
+    int risk = clampi(p.getRisk(), 0, 10);
+    int luck = clampi(p.getLuck(), 0, 10);
+    
+    // base card
+    int card + (rand() % 10) + 1;
+    
+    // risk to get more chance to force 10
+    int roll = rand() % 100;
+    if (roll < risk * 3) card = 10;
+    else if (roll < risk * 3 + 5) card = 1;
+    
+    
+    // luck to get small change to + 1
+    int luckRoll = rand() % 100;
+    if (luckRoll < luck * 2) card = min (10, card + 1);
+    
+    return card
+}
+
+// calculate the sum
+static int handSum(const int cards [], int n) {
+    int s = 0;
+    for (int i = 0, i < n; i++) s+= cards[i];
+    return s;
+}
+
+// to find 21
+static bool isBlackJack(const int cards[], int n) {
+    return ( n == 2 && (card[0] + cards[1] == 21));
+}
+
+
+// place bit
+static int readBet(const int cards[], int n) {
+    cput << "Please enter your bit: (Your bankroll: " << player.getBankroll() << "): ";
+    int beat = 0;
+    while (true) {
+        // clean up insert
+        if (!cin >> bet)) {
+            cin.ignore(numeric_limits<sreamsize>::max(), "\n";
+            cout << "Invalid input. Please enter a number (401): ";
+            continue;
+        }
+        // anti cheat
+        if (bet <= 0) {
+            cout << "Bet can not be < o. Please Enter a number (403): ";
+            continue;
+        }
+        if (bet > player.getBankroll()) {
+            cout << "Not enough bankrool. Please try again (405): "
+            continue;
+        }
+        cin.ignore(numeric_limits<streamsize>::max(), "\n");
+        return bet;
+    }
+}
+
+// make a new game later
+
+// game
+void playRound(Player& player) {
+    int playerCard = (rand() % 10) + 1;
+    int dealerCard = (rand() % 10) + 1;
+
+    cout << "\nYou drew: " << playerCard << endl;
+    cout << "Dealer drew: " << dealerCard << endl;
+
+    if (playerCard > dealerCard) {
+        cout << "You win!\n";
+        player.addBankroll(100);
+    } else if (playerCard < dealerCard) {
+        cout << "The Dealer win\n";
+        player.addBankroll(-100);
+    } else {
+        cout << "Tie!\n";
+        // bankroll unchanged
+    }
+
+    roundNumber++;
+    cout << "Round Number: " << roundNumber << endl;
+}

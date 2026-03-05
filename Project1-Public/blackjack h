@@ -1,0 +1,12 @@
+// blackjack.h
+// gameplay
+
+#ifndef BLACKJACK_H
+#define BLACKJACK_H
+
+// bring in
+#include "player.h"
+
+void playRound(Player& player);
+
+#endif

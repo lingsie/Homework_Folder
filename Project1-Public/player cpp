@@ -1,0 +1,114 @@
+// player.cpp
+
+
+// bring in
+#include "player.h"
+#include <iostream>
+
+
+using namespace std;
+
+// Archetype stat
+const int GAMBLER_BANKROLL = 1000;
+const int GAMBLER_LUCK = 5;
+const int GAMBLER_RISK = 5;
+
+
+const int ANALYST_BANKROLL = 800;
+const int ANALYST_LUCK = 2;
+const int ANALYST_RISK = 8;
+
+
+const int HIGHROLLER_BANKROLL = 2000;
+const int HIGHROLLER_LUCK = 1;
+const int HIGHROLLER_RISK = 3;
+
+
+Player::Player()
+    : name("Player"),
+      archetype("Gambler"),
+      bankroll(GAMBLER_BANKROLL),
+      luck(GAMBLER_LUCK),
+      risk(GAMBLER_RISK) {}
+
+
+Player::Player(const std::string& n, const std::string& type, int money, int l, int r)
+    : name(n), archetype(type), bankroll(money), luck(l), risk(r) {}
+
+
+Player Player::createArchetype(const std::string& playerName) {
+    cout << "\nPlease choose a archetype: \n";
+    cout << "1) Gambler        (Bankroll 1000, Luck 5, Risk 5) \n";
+    cout << "2) Analyst        (Bankroll 800,  Luck 2, Risk 8) \n";
+    cout << "3) HighRoller     (Bankroll 2000, Luck 1, Risk 3) \n";
+    cout << "Please enter your choice: ";
+
+
+    int choice = 1;
+    cin >> choice;
+
+
+    if (choice == 2) {
+        return Player(playerName, "Analyst", ANALYST_BANKROLL, ANALYST_LUCK, ANALYST_RISK);
+    }
+    if (choice == 3) {
+        return Player(playerName, "HighRoller", HIGHROLLER_BANKROLL, HIGHROLLER_LUCK, HIGHROLLER_RISK);
+    }
+    return Player(playerName, "Gambler", GAMBLER_BANKROLL, GAMBLER_LUCK, GAMBLER_RISK);
+}
+
+
+// player profile
+void Player::displayProfile() const {
+    cout << "\n### Profile ###\n";
+    cout << "Name: " << name << "\n";
+    cout << "Archetype: " << archetype << "\n";
+    cout << "Bankroll: " << bankroll << "\n";
+    cout << "Luck: " << luck << "\n";
+    cout << "Risk: " << risk << "\n";
+}
+
+
+// using item
+void Player::applyItem(const Item& item) {
+    string target = item.getTargetStat();
+    int value = item.getTraitValue();
+
+
+    if (target == "bankroll") bankroll += value;
+    else if (target == "luck") luck += value;
+    else if (target == "risk") risk -= value;
+
+
+    // clamp stats dont get negative, or too mush
+    if (luck < 0) luck = 0;
+    if (luck > 10) luck = 10;
+    if (risk < 0) risk = 0;
+    if (risk > 10) risk = 10;
+
+
+    cout << "Applied '" << item.getItemName() << "'. (" << target
+         << " changed by " << value << ")\n";
+}
+
+
+
+bool Player::applyItemByName(const std::string& itemName) {
+    Item* it = inventory.findItemByName(itemName);
+    if (!it) return false;
+
+
+    // use item
+    applyItem(*it);
+    inventory.removeItemByName(itemName);
+    return true;
+}
+
+
+// get player stat
+int Player::getBankroll() const { return bankroll; }
+int Player::getLuck() const { return luck; }
+int Player::getRisk() const { return risk; }
+
+
+void Player::addBankroll(int amount) { bankroll += amount; }

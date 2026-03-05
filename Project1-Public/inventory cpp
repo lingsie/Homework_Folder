@@ -1,0 +1,62 @@
+// inventory.cpp
+
+
+// bring in
+#include "inventory.h"
+#include <iostream>
+
+
+using namespace std;
+
+
+// add
+bool Inventory::addItem(const Item& item) {
+    if (static_cast<int>(items.size()) >= INVENTORY_CAP) return false;
+    items.push_back(item);
+    return true;
+}
+
+
+// delete
+bool Inventory::removeItemByName(const std::string& name) {
+    for (int i = 0; i < static_cast<int>(items.size()); i++) {
+        if (items[i].getItemName() == name) {
+            // shift left
+            for (int j = i; j < static_cast<int>(items.size()) - 1; j++) {
+                items[j] = items[j + 1];
+            }
+            items.pop_back();
+            return true;
+        }
+    }
+    return false;
+}
+
+
+// find
+Item* Inventory::findItemByName(const std::string& name) {
+    for (int i = 0; i < static_cast<int>(items.size()); i++) {
+        if (items[i].getItemName() == name) {
+            return &items[i];
+        }
+    }
+    return nullptr;
+}
+
+
+// open bag
+void Inventory::openBag() const {
+    cout << "\n### Your Bag (" << items.size() << "/" << INVENTORY_CAP << ") ###\n";
+    if (items.empty()) {
+        cout << "(Your Bag is Empty)\n";
+        return;
+    }
+    for (int i = 0; i < static_cast<int>(items.size()); i++) {
+        cout << "- " << items[i].getItemName() << "\n";
+    }
+}
+
+
+int Inventory::getItemCount() const {
+    return static_cast<int>(items.size());
+}
